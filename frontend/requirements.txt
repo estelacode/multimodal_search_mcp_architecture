@@ -1,0 +1,5 @@
+gradio==6.2.0
+strands-agents==1.21.0
+python-dotenv==1.2.1
+faster-whisper==1.2.1
+soundfile==0.13.1
