@@ -1,0 +1,41 @@
+services:
+  chromadb:
+    image: chromadb/chroma  # Usamos la imagen oficial de ChromaDB desde Docker Hub
+    container_name: chromadb_container
+    volumes:
+      - /c/Users/emada/Desktop/ia_workspace/multimodal_search_mcp_architecture/chroma_db/:/data  # Ruta a la base de datos ChromaDB en tu máquina
+    ports:
+      - "8000:8000"  # Expone el puerto 8000 para acceder al contenedor de ChromaDB
+    networks:
+      - my_network 
+
+  mcp_server:
+    build:
+      context: mcp_server  # El directorio donde está el Dockerfile del MCP Server
+    container_name: mcp_server_container
+    ports:
+      - "9000:9000" # Expone el puerto 9000 para acceder al contenedor del MCP Server
+    depends_on:
+      - chromadb  # Asegura que el MCP Server espere a que ChromaDB esté listo
+    networks:
+      - my_network
+    env_file:
+      - mcp_server/.env  # Carga las variables de entorno desde el archivo .env
+
+
+  frontend:
+    build:
+      context: frontend  # El directorio donde está el Dockerfile del Frontend
+    container_name: frontend_container
+    ports:
+      - "3000:3000"  # Expone el puerto 3000 para acceder al contenedor del Frontend
+    depends_on:
+      - mcp_server  # Asegura que el Frontend espere a que ChromaDB esté listo
+    networks:
+      - my_network
+    env_file:
+      - frontend/.env  # Carga las variables de entorno desde el archivo .env
+  
+networks:
+  my_network:  # Red compartida para la comunicación entre contenedores
+    driver: bridge
