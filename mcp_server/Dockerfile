@@ -10,11 +10,11 @@ COPY setup.py requirements.txt /mcp_server/
 # Instalar las dependencias desde requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Instalar el paquete de la aplicación en modo editable
-RUN pip install --no-cache-dir -e .
-
 # Copia el resto de los archivos del proyecto
 COPY . /mcp_server/
+
+# Instalar el paquete de la aplicación en modo editable
+RUN pip install -e .
 
 # Exponer el puerto donde el MCP Server estará disponible
 EXPOSE 9000  

@@ -24,10 +24,10 @@ logger = logging.getLogger(__name__)
 load_dotenv()  
 
 # Initialize ChromaDB connection
-chroma_db = ChromaDatabase(host=os.getenv("CHROMADB_HOST"), port=os.getenv("CHROMADB_PORT"), collection_name=os.getenv("CHROMADB_COLLECTION_NAME"))
+chroma_db = ChromaDatabase(host=os.getenv("CHROMADB_HOST"), port=int(os.getenv("CHROMADB_PORT")), collection_name=os.getenv("CHROMADB_COLLECTION_NAME"))
 
 # Create mcp server instance
-mcp = FastMCP(name=os.getenv("MCP_SERVER_NAME"), port=os.getenv("MCP_SERVER_PORT"))
+mcp = FastMCP(name=os.getenv("MCP_SERVER_NAME"), port=int(os.getenv("MCP_SERVER_PORT")))
 
 
 @mcp.tool
@@ -126,6 +126,6 @@ def text_to_image_search_tool(text_query: str, top_k: int)-> List[Dict]:
 
 if __name__ == "__main__":
     print("🚀 Launching MCP Server...")
-    mcp.run(transport="streamable-http")
+    mcp.run(transport="streamable-http",   port=int(os.getenv("MCP_SERVER_PORT")), host=os.getenv("MCP_SERVER_HOST"))
     
 

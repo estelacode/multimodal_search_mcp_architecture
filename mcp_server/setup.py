@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name="mcp_server",
     version="0.1.0",
+    package_dir={"": "src"}, # Indica que los paquetes están en el directorio 'src' 
     packages=find_packages(where="src"),  # Encuentra automáticamente todos los paquetes y subpaquetes
-    package_dir={"": "src"},  # Indica que los paquetes están en el directorio 'src'    
     install_requires=[
         # Lista de dependencias del proyecto:
         'chromadb==1.3.5',
