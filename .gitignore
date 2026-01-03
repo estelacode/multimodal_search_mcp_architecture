@@ -7,6 +7,8 @@ __pycache__/
 
 # uv / virtual environments
 .venv/
+.env
 .uv/
 
-data/
+
+*.log
