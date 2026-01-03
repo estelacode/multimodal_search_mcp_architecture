@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name="frontend",
     version="0.1.0",
-    packages=find_packages(where="src"),  # Encuentra automáticamente todos los paquetes y subpaquetes
     package_dir={"": "src"},
+    packages=find_packages(where="src"),  # Encuentra automáticamente todos los paquetes y subpaquetes
     install_requires=[
         # Lista de dependencias del proyecto:
         'gradio==6.2.0',

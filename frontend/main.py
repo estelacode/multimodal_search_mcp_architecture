@@ -1,6 +1,9 @@
 from frontend.ui import ui
-
+from dotenv import load_dotenv
+import os
 import logging
+
+load_dotenv()
 
 # Setup logging
 logging.basicConfig(
@@ -18,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     logger.info("Starting the Multimodal Search UI...")
-    ui().launch()
+    ui().launch(server_name=os.getenv("FRONTEND_HOST"), server_port=int(os.getenv("FRONTEND_PORT")))
 
 
 if __name__ == "__main__":
