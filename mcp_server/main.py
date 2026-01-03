@@ -54,9 +54,12 @@ def image_to_image_search_tool(image_query:str,top_k: int)-> List[Dict]:
     data = result["data"][0]
 
     return [
-        {
+        {   
+            # Original location of the image (not used in the frontend currently)
             "uri": uris[i],
+            # Metadata associated with the image
             "metadata": metadatas[i],
+            # Matrix of pixel values converted to base64 string
             "data": ndarray_to_base64(data[i])
         }
         for i in range(len(uris))
@@ -105,9 +108,12 @@ def text_to_image_search_tool(text_query: str, top_k: int)-> List[Dict]:
 
         # Convert image data (pixel matrix) to base64 and include in the response
         return [
-            {
+            {   
+                # Original location of the image (not used in the frontend currently)
                 "uri": uris[i],
+                # Metadata associated with the image
                 "metadata": metadatas[i],
+                # Matrix of pixel values converted to base64 string
                 "data": ndarray_to_base64(data[i])
             }
             for i in range(len(uris))
