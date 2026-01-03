@@ -69,14 +69,14 @@ def process_text_query(text_query: str, top_k: int)-> tuple[list, str, float, fl
         metrics = Metrics()  # Creamos la instancia de la clase Metrics
 
         
-        client = MultimodalSearchMCPClient()
-        with client.mcp_client:
+        client = MultimodalSearchMCPClient.create_mcp_client()
+        with client:
             start_time = metrics.start_timer()  
-            tool_result = client.invoke_tool(tool_name="text_to_image_search_tool", arguments={"text_query": text_query, "top_k": top_k})
+            tool_result = MultimodalSearchMCPClient.invoke_tool(client, tool_name="text_to_image_search_tool", arguments={"text_query": text_query, "top_k": top_k})
             metrics.mcp_tool_latency = metrics.end_timer(start_time)
 
             start_time = metrics.start_timer()  
-            gallery_items = client.get_items_gallery(tool_result)
+            gallery_items = MultimodalSearchMCPClient.get_items_gallery(tool_result)
             metrics.post_processing_latency = metrics.end_timer(start_time)
 
             return gallery_items,"", metrics.trascription_latency, metrics.mcp_tool_latency, metrics.post_processing_latency, metrics.get_total_latency()
@@ -106,14 +106,14 @@ def process_image_query(image_query_file_path: str, top_k: int) -> tuple[list, s
 
         metrics = Metrics()  
          
-        client = MultimodalSearchMCPClient()
-        with client.mcp_client:
+        client = MultimodalSearchMCPClient.create_mcp_client()
+        with client:
             start_time = metrics.start_timer()  
-            tool_result = client.invoke_tool(tool_name="image_to_image_search_tool", arguments={"image_query": image_query, "top_k": top_k})
+            tool_result = MultimodalSearchMCPClient.invoke_tool(client,tool_name="image_to_image_search_tool", arguments={"image_query": image_query, "top_k": top_k})
             metrics.mcp_tool_latency = metrics.end_timer(start_time)
 
             start_time = metrics.start_timer()
-            gallery_items = client.get_items_gallery(tool_result)
+            gallery_items = MultimodalSearchMCPClient.get_items_gallery(tool_result)
             metrics.post_processing_latency = metrics.end_timer(start_time)
             return gallery_items,"", metrics.trascription_latency, metrics.mcp_tool_latency, metrics.post_processing_latency, metrics.get_total_latency()
     except Exception as e:

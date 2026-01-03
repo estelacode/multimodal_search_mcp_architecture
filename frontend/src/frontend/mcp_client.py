@@ -15,27 +15,40 @@ load_dotenv()
 
 
 class MultimodalSearchMCPClient:
+    
+    @staticmethod
+    def create_mcp_client() -> MCPClient:
+        """
+        Creates and returns an MCPClient instance.
 
-    def __init__(self):
-        self.mcp_client = MCPClient(lambda: streamable_http_client(os.getenv("MCP_SERVER_URL")))
-        logger.info("Initialized MultimodalSearchMCPClient with MCP server URL: %s", os.getenv("MCP_SERVER_URL"))
-    def get_tools(self) -> list[str]:
+        Returns:
+            MCPClient: An instance of MCPClient connected to the specified MCP server.
+        """
+        logger.info("Creating MCPClient instance")
+        return MCPClient(lambda: streamable_http_client(os.getenv("MCP_SERVER_URL")))
+    
+    @staticmethod
+    def get_tools(mcp_client: MCPClient) -> list[str]:
         
         """
         Fetches the list of available tools from the MCPClient.
+        Args:
+            mcp_client (MCPClient): The MCPClient instance to use.
 
         Returns:
             list[str]: A list of tool names available on the MCPClient.
         """
         logger.info("Fetching tools from MCPClient")
-        return [tool.tool_name for tool in self.mcp_client.list_tools_sync()]
-
-    def invoke_tool(self,tool_name: str, arguments: dict[str, Any])-> MCPToolResult:
+        return [tool.tool_name for tool in mcp_client.list_tools_sync()]
+    
+    @staticmethod
+    def invoke_tool(mcp_client: MCPClient,tool_name: str, arguments: dict[str, Any])-> MCPToolResult:
         
         """
         Calls a tool on the MCPClient with the given arguments.
 
         Args:
+            mcp_client (MCPClient): The MCPClient instance to use.
             tool_name (str): The name of the tool to call.
             arguments (dict[str, Any]): The arguments to pass to the tool.
 
@@ -43,9 +56,10 @@ class MultimodalSearchMCPClient:
             dict: The response from the MCPClient.
         """
         logger.info("Calling tool '%s' on MCPClient with arguments: %s", tool_name, arguments)
-        return self.mcp_client.call_tool_sync(tool_use_id=str(uuid.uuid4()), name=tool_name, arguments=arguments)
+        return mcp_client.call_tool_sync(tool_use_id=str(uuid.uuid4()), name=tool_name, arguments=arguments)
 
-    def get_items_gallery(self,result:MCPToolResult)-> list:
+    @staticmethod
+    def get_items_gallery(result:MCPToolResult)-> list:
       
         """
         Transforms the given MCPToolResult into a list of gallery items.
