@@ -36,14 +36,14 @@ def process_audio_query(audio_query_file_path: str, top_k: int) -> tuple[list, s
         raise gr.Error(f"{ge}")
     
     try:  
-        client = MultimodalSearchMCPClient()
-        with client.mcp_client:
+        client = MultimodalSearchMCPClient.create_mcp_client()
+        with client:
             start_time = metrics.start_timer()  
-            tool_result = client.invoke_tool(tool_name="text_to_image_search_tool", arguments={"text_query": text_query, "top_k": top_k})
+            tool_result = MultimodalSearchMCPClient.invoke_tool(client,tool_name="text_to_image_search_tool", arguments={"text_query": text_query, "top_k": top_k})
             metrics.mcp_tool_latency = metrics.end_timer(start_time)
 
             start_time = metrics.start_timer()
-            gallery_items = client.get_items_gallery(tool_result)
+            gallery_items = MultimodalSearchMCPClient.get_items_gallery(tool_result)
             metrics.post_processing_latency = metrics.end_timer(start_time)
         return gallery_items, text_query, metrics.trascription_latency, metrics.mcp_tool_latency, metrics.post_processing_latency, metrics.get_total_latency()
     except Exception as e:

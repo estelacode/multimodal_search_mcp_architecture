@@ -83,9 +83,11 @@ class MultimodalSearchMCPClient:
             gallery_items = []
             
             for item in items:
-                image= base64_to_pil_image(item["data"])
+                
                 meta = item["metadata"]
                 caption = f"{meta['name']} — ${meta['price']} — {meta['category']}"
+                base64_img = meta['base64_image']
+                image= base64_to_pil_image(base64_img)
                 gallery_items.append([image, caption])
             logger.info("Successfully created %d gallery items", len(gallery_items))
             return gallery_items
