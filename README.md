@@ -23,20 +23,20 @@ The system is designed around a high-level architecture that provides a clear ov
 
 At the core of the system, a vector database (ChromaDB) stores image embeddings along with their metadata and enables similarity-based retrieval for user queries. The MCP Server exposes multiple tools via the MCP protocol, including text-to-image and image-to-image search, which connect the frontend with the vector database to deliver relevant search results efficiently
 
-![High Level Architecture Diagram](docs\diagrams\high_level_diagram\high_level_architecture_diagram.png)
+![High Level Architecture Diagram](docs/diagrams/high_level_diagram/high_level_architecture_diagram.png)
 
 
 ## Flow Diagram
 This diagram outlines how the system operates at a high level. The user submits a query (text, image, or audio), which is sent to the MCP Client. The MCP Client then invokes the corresponding tool exposed by the MCP Server. The server’s tools perform semantic searches on a vector database, retrieving images relevant to the user’s query.
 
 
-![Flow Diagram](docs\diagrams\flow_diagram\flow_chart.png) 
+![Flow Diagram](docs/diagrams/flow_diagram/flow_chart.png) 
  
 ## Sequence Diagram
 
 The sequence diagram illustrates how the different system components communicate and interact over time during a search request. It shows the end-to-end flow from the user submitting a multimodal query (text, image, or audio) through the frontend, MCP Client, and MCP Server, to the execution of the appropriate search tool and the retrieval of results from the vector database. This diagram highlights the sequential interactions and decision points that enable multimodal processing and result delivery.
 
-![Sequence Diagram](docs\diagrams\sequence_diagram\sequence_diagram.png) 
+![Sequence Diagram](docs/diagrams/sequence_diagram/sequence_diagram.png) 
 
 
 ## Demo
@@ -44,19 +44,19 @@ The sequence diagram illustrates how the different system components communicate
 ### Voice Query Example
 
 
-![Demo - Voice Query in Spanish](docs\demo\demo_multilingual_es_audio_query.jpg)
+![Demo - Voice Query in Spanish](docs/demo/demo_multilingual_es_audio_query.jpg)
 
 
-![Demo - Voice Query in English](docs\demo\demo_voice_query.jpg)
+![Demo - Voice Query in English](docs/demo/demo_voice_query.jpg)
 
 
 ### Image Query Example
 
-![Demo - Image Query](docs\demo\demo_image_query.jpg)
+![Demo - Image Query](docs/demo/demo_image_query.jpg)
 
 ### Text Query Example
 
-![Demo - Text Query](docs\demo\demo_text_query.jpg)
+![Demo - Text Query](docs/demo/demo_text_query.jpg)
 
 
 ## Tech Stack
