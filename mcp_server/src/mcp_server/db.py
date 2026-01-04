@@ -37,7 +37,7 @@ class ChromaDatabase:
             str: response with retrieved images and their metadata.
         """
         logger.info(f"Text to Image Search: {text_query}")
-        return self.collection.query(query_texts=[text_query], include=['data', 'metadatas', 'uris'], n_results=n_results)
+        return self.collection.query(query_texts=[text_query], include=['data', 'metadatas','uris','distances'], n_results=n_results)
 
     def image_to_image_search(self, image_query: str, n_results: int) -> str:
         """Search for images based on the image query.
@@ -50,4 +50,4 @@ class ChromaDatabase:
             str: response with retrieved images and their metadata.
         """
         logger.info(f"Image to Image Search")
-        return self.collection.query(query_images=[image_query], include=['data','metadatas', 'uris'], n_results=n_results)
+        return self.collection.query(query_images=[image_query], include=['data','metadatas','uris','distances'], n_results=n_results)

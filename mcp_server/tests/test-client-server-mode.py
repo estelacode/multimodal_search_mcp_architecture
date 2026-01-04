@@ -26,7 +26,7 @@ def main():
     count = collection.count()
     print(f"✅ Collection 'men_shoes' loaded. Embeddings: {count}")
     
-    result = collection.query(query_texts=['Military Boots'], include=['data', 'metadatas'], n_results=1)
+    result = collection.query(query_texts=['Military Boots'], include=['data', 'metadatas','uris'], n_results=1)
     print("✅ Query Results:", result)
 if __name__ == "__main__":
     main()

@@ -49,20 +49,15 @@ def image_to_image_search_tool(image_query:str,top_k: int)-> List[Dict]:
     result = chroma_db.image_to_image_search( image_query_array, n_results=top_k)
     logger.debug(f"Image to Image Search Result: {result}")
 
-    uris = result["uris"][0]
     metadatas = result["metadatas"][0]
-    data = result["data"][0]
-
     return [
         {   
-            # Original location of the image (not used in the frontend currently)
-            "uri": uris[i],
             # Metadata associated with the image
             "metadata": metadatas[i],
             # Matrix of pixel values converted to base64 string
-            "data": ndarray_to_base64(data[i])
+            "base64_image": metadatas[i]['base64_image']
         }
-        for i in range(len(uris))
+        for i in range(len(metadatas))
     ]  
     
 
@@ -85,38 +80,19 @@ def text_to_image_search_tool(text_query: str, top_k: int)-> List[Dict]:
     # Perform the search
     try:
         result = chroma_db.text_to_image_search(text_query, n_results=top_k)
-        logger.debug(f"Text to Image Search Result: {result}")
+        logger.info(f"Text to Image Search Result: {result}")
 
         # Check if there are URIs and metadata in the result
-        uris = result["uris"][0]
         metadatas = result["metadatas"][0]
-        data = result["data"][0]
-        
-
-        # Check for missing URIs or metadata or data
-        if not data:
-            logger.warning(f"No data found for query: '{text_query}'.")
-        if not uris:
-            logger.warning(f"No URIs found for query: '{text_query}'.")
-        if not metadatas:
-            logger.warning(f"No metadata found for query: '{text_query}'.")
-
-        # If no URIs or metadata, return an empty list or raise an exception
-        if not uris or not metadatas:
-            logger.error(f"Search for query '{text_query}' did not return valid results.")
-            return []  # Return empty list or handle accordingly
-
-        # Convert image data (pixel matrix) to base64 and include in the response
+    
         return [
             {   
-                # Original location of the image (not used in the frontend currently)
-                "uri": uris[i],
                 # Metadata associated with the image
                 "metadata": metadatas[i],
                 # Matrix of pixel values converted to base64 string
-                "data": ndarray_to_base64(data[i])
+                "base64_image": metadatas[i]['base64_image']
             }
-            for i in range(len(uris))
+            for i in range(len(metadatas))
         ]
     
     except Exception as e:
