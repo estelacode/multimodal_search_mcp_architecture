@@ -137,3 +137,6 @@ docker compose up --build
 
 ### 👋 Author
 Estela Madariaga
+
+### ⚓ Post
+https://medium.com/@estelamadariaga/low-latency-multimodal-search-web-app-with-mcp-architecture-6109fffa3288 
