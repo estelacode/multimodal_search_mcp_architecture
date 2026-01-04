@@ -1,0 +1,30 @@
+---
+config:
+  theme: neo
+---
+flowchart LR
+    U[User]
+
+    subgraph DC["Docker Compose Environment"]
+        
+        
+        subgraph C1["Frontend (Container)"]
+            FE[Web UI]
+        end
+
+        subgraph C3["MCP Server (Container)"]
+            MCP[MCP Tools<br/>Semantic Search]
+        end
+
+        subgraph C4["Vector DB (Container)"]
+            DB[ChromaDB]
+        end
+
+    end
+
+    U -->|Text / Image / Audio Query| FE
+    FE -->|MCP Protocol| MCP
+    MCP -->|HTTP Protocol| DB
+    DB --> |HTTP Protocol| MCP
+    MCP --> |MCP Protocol| FE
+    FE -->|Images| U

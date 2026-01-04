@@ -14,3 +14,6 @@ mcp_server/notebooks/data
 mcp_server/notebooks/csv
 mcp_server/notebooks/chroma_db
 *.log
+
+*data
+*csv

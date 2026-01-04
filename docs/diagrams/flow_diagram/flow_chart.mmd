@@ -1,0 +1,16 @@
+---
+config:
+  theme: neo
+  layout: dagre
+---
+flowchart LR
+    A(("Start")) --> B["Text Query"] & D["Image Query"] & E["Audio Query"]
+    E --> G["Speech to Text"]
+    B --> C["MCP Client"]
+    D --> C
+    G --> C
+    C --> H["MCP Server"]
+    H --> I["Tool"]
+    I --> J["Semantic Search"]
+    J --> K["Images"]
+    K --> F(("End"))

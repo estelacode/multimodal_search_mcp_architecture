@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant User as User
+    participant Frontend as Frontend (Web UI)
+    participant STT as Frontend (SpeechToTextProcessor)
+    participant MCPClient as Frontend (MCP Client)
+    participant MCPServer as MCP Server
+    participant Tool as Tool (Text-to-Image, Image-to-Image Search)
+    participant DB as Vector Database (ChromaDB)
+
+    User->>Frontend: Enters Query (Text/Image/Audio)
+    Frontend->>Frontend: Determines Query Type (Text, Image, Audio)
+    Frontend->>Frontend: Creates the MCP Client
+    
+    alt Audio Query
+        Frontend->>STT: Sends Audio Query for Speech-to-Text
+        STT-->>Frontend: Returns Text from Audio
+        Frontend->>MCPClient: Sends Converted Text Query
+    else Image Query
+        Frontend->>Frontend: Converts image to base64
+        Frontend->>MCPClient: Sends Image Query
+    else Text Query
+        Frontend->>MCPClient: Sends Text Query
+    end
+    
+    MCPClient->>MCPServer: Get the list of tools
+    MCPServer-->>MCPClient: Tools available
+    MCPClient->>MCPServer: Calls a specific Tool
+    MCPServer->>Tool: Executes the Tool
+    Tool->>DB: Semantic Search
+    DB-->>Tool: Return Relevant Images
+    Tool-->>MCPServer: Return Images + Metadata
+    MCPServer-->>MCPClient: Return result 
+    MCPClient-->>Frontend: Return result
+    Frontend->>Frontend: Gets the list of Gallery Items
+    Frontend->>User: Displays Results
+
+  
