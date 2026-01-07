@@ -13,7 +13,7 @@ Imagine being able to search for the perfect pair of shoes not just by typing a 
 
 
 ## Goal
-The goal of this project is to build a web application for multimodal search using an MCP (Multimodal Conversational Platform) architecture. The solution allows users to perform queries via voice, text, or image over a database of footwear images and their metadata. Through this application, users can search for products (e.g., footwear) and get relevant results based on different query modalities.
+The goal of this project is to build a web application for multimodal search using an MCP (Model Context Protocol) architecture. The solution allows users to perform queries via voice, text, or image over a database of footwear images and their metadata. Through this application, users can search for products (e.g., footwear) and get relevant results based on different query modalities.
 
 The main goal of this project is to demonstrate how a multimodal search system can benefit from MCP architecture and how libraries like faster-whisper improve the latency of audio-to-text conversion compared to OpenAI's Whisper models
 
