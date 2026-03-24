@@ -41,12 +41,10 @@ The sequence diagram illustrates how the different system components communicate
 
 ## Demo
 
-### Video
-Demo1 - Youtube Video: https://youtu.be/dQrJ0U8dKuM
-Demo2 - Youtube Video: https://youtu.be/8sm3A0Puxmk
+- Video Demo1 - Youtube Video: https://youtu.be/dQrJ0U8dKuM
+- Video Demo2 - Youtube Video: https://youtu.be/8sm3A0Puxmk
 
 ### Voice Query Example
-
 
 ![Demo - Voice Query in Spanish](docs/demo/demo_multilingual_es_audio_query.jpg)
 
